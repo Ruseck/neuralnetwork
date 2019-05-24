@@ -1,7 +1,9 @@
 package core;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Neuron {
@@ -20,11 +22,18 @@ public class Neuron {
         for (int i = 0; i < perceptronList.size(); i++) {
             sum += perceptronList.get(i) * weights.get(i).getWeight();
         }
-        sum+=bias;
+        sum += bias;
         return sum;
     }
 
-    public void train(float error){
+    public void train(float error) {
+        //e=w/Ew*error
+        float errorDivideSum = (float) weights.stream().mapToDouble(Connection::getWeight).sum() / error;
+        List<Float> errors = weights.stream()
+                .map(Connection::getWeight).map(w -> w * errorDivideSum).collect(Collectors.toList());
+        //dw=lr*e*in*(out-out^2)
 
     }
+
+
 }
