@@ -1,4 +1,4 @@
-package core;
+package util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,10 @@ import java.util.function.Function;
 
 public class NNUtil {
     private NNUtil() {
+    }
+
+    public static float sigmoid(float val) {
+        return (float) (1 / (1 + Math.pow(Math.E, -val)));
     }
 
     public static float random(int max) {

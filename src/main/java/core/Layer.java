@@ -1,7 +1,8 @@
 package core;
 
+import util.NNUtil;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -11,18 +12,25 @@ public class Layer {
 
     public Layer(int in, int nsize) {
         IntStream.range(0, nsize)
-            .parallel()
-            .map(ind -> in)
-            .mapToObj(Neuron::new)
-            .forEach(neurons::add);
+                .map(ind -> in)
+                .mapToObj(Neuron::new)
+                .forEach(neurons::add);
     }
 
-    public List<Float> train(List<Float> errors) {
+    public List<Float> guess(List<Float> in) {
+        List<Float> result = new ArrayList<>();
+        for (Neuron neuron : neurons) {
+            result.add(neuron.guess(in));
+        }
+        return result;
+    }
+
+    public List<Float> correctWiehgts(List<Float> errors) {
         List<Float> nextErrors = new ArrayList<>();
         NNUtil.processSameElements((list) -> {
             float er = (float) list.get(0);
             Neuron neuron = (Neuron) list.get(1);
-            List<Float> w = neuron.train(er);
+            List<Float> w = neuron.correctWeights(er);
             if (nextErrors.isEmpty()) {
                 nextErrors.addAll(w);
             } else {
@@ -35,6 +43,6 @@ public class Layer {
                 nextErrors.addAll(tempWeights);
             }
         }, errors, neurons);
-        return errors;
+        return nextErrors;
     }
 }
