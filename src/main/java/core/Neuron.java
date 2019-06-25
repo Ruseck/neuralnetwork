@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Neuron {
+public class Neuron{//jk;jk;jk
     private float learnRate = 0.1f;
     private List<Connection> weights = new LinkedList<>();
     private Connection bias = new Connection();
