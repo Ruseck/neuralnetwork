@@ -5,7 +5,7 @@ import util.NNUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NeuralNetwork {
+public class NeuralNetwork {//lkklkl
 
     public NeuralNetwork(int in, int... layers) {
         for (int layerSize : layers) {
